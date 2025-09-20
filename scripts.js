@@ -71,11 +71,37 @@ document.addEventListener('DOMContentLoaded', function() {
 // document.addEventListener("keydown", (event) => {
 //     // Your code here!
 // });
+document.addEventListener("keydown", (event) => {
+    if (gameOver) {
+        logDebug("Game over, input ignored", "warning");
+        return;
+    }
+    const key = event.key.toUpperCase();
+    logDebug(`Key pressed: ${key}`, "info");
+
+    if (key === "BACKSPACE") {
+        deleteLetter();
+    } else if (key === "ENTER") {
+        submitGuess();
+    } else if (/^[A-Z]$/.test(key)) {
+        addLetter(key);
+    } else {
+        logDebug(`Ignored key: ${event.key}`, "warning");
+    }
+});
 
 // TODO: Implement addLetter function
 // function addLetter(letter) {
 //     // Your code here!
 // }
+function addLetter(letter) {
+    logDebug(`addLetter("${letter}") called`, 'info');
+
+    if (currentTile >= 5) {
+        logDebug("Row is full, can't add more letters", 'warning');
+        return;
+    }
+}
 
 // TODO: Implement deleteLetter function  
 // function deleteLetter() {
