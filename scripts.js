@@ -101,6 +101,20 @@ function addLetter(letter) {
         logDebug("Row is full, can't add more letters", 'warning');
         return;
     }
+    const rowElement = rows[currentRow];
+
+    const tiles = rowElement.querySelectorAll('.tile');
+    
+    const tile = tiles[currentTile];
+    
+    tile.textContent = letter;
+    
+    tile.classList.add('filled');
+    
+    currentTile++;
+    
+    logDebug(`Added "${letter}" to row ${currentRow}, position ${currentTile - 1}`, 'success');
+    logDebug(`Current word: ${getCurrentWord()}`, 'info');
 }
 
 // TODO: Implement deleteLetter function  
