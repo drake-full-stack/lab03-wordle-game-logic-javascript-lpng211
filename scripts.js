@@ -68,9 +68,6 @@ document.addEventListener('DOMContentLoaded', function() {
 // ===== YOUR CHALLENGE: IMPLEMENT THESE FUNCTIONS =====
 
 // TODO: Add keyboard event listener
-// document.addEventListener("keydown", (event) => {
-//     // Your code here!
-// });
 document.addEventListener("keydown", (event) => {
     if (gameOver) {
         logDebug("Game over, input ignored", "warning");
@@ -91,9 +88,6 @@ document.addEventListener("keydown", (event) => {
 });
 
 // TODO: Implement addLetter function
-// function addLetter(letter) {
-//     // Your code here!
-// }
 function addLetter(letter) {
     logDebug(`addLetter("${letter}") called`, 'info');
 
@@ -138,9 +132,37 @@ function deleteLetter() {
 
 
 // TODO: Implement submitGuess function
-// function submitGuess() {
-//     // Your code here!
-// }
+function submitGuess() {
+    logDebug("submitGuess() called", 'info');
+
+    if (currentTile !== 5) {
+        alert("Enter 5 letters");
+        return;
+    }
+
+    const rowElement = rows[currentRow];
+    const tiles = rowElement.querySelectorAll('.tile');
+    let guess = '';
+    tiles.forEach(tile => guess += tile.textContent);
+
+    logDebug(`Guess submitted: ${guess}`, 'info');
+
+    checkGuess(guess, tiles);
+
+    if (guess === TARGET_WORD) {
+        gameOver = true;
+        setTimeout(() => alert("You Win!"), 500);
+        return;
+    }
+
+    currentRow++;
+    currentTile = 0;
+
+    if (currentRow >= 6) {
+        gameOver = true;
+        setTimeout(() => alert(`Game Over, the word was ${TARGET_WORD}`), 500);
+    }
+}
 
 // TODO: Implement checkGuess function (the hardest part!)
 // function checkGuess(guess, tiles) {
